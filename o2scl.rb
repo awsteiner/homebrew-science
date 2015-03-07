@@ -4,18 +4,20 @@ class O2scl < Formula
   url "http://23.115.64.197/o2scl-0.918.tar.gz"
   sha256 "2b5ee94f937472a1a99103f6319f3bebb9f9e0f9118d2870e5f8177ac999586a"
 
+  option "with-check", "Run build-time tests"
+
   depends_on "gsl"
   depends_on "hdf5"
   depends_on "boost"
   depends_on "readline"
 
   def install
-    system "./configure", "--disable-debug",
-                          "--disable-dependency-tracking",
+    system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",
                           "--prefix=#{prefix}"
     system "make"
     system "make", "install"
+    system "make", "o2scl-test" if build.with? "check"
   end
 
   test do
