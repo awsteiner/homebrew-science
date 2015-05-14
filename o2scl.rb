@@ -25,6 +25,7 @@ class O2scl < Formula
       if build.with? "eigen"
         system "./configure", "--disable-dependency-tracking",
                "--enable-armadillo","--enable-eigen",
+               "--includedir=/usr/local/include/eigen3",
                "--disable-silent-rules",
                "--prefix=#{prefix}"
       else
@@ -38,6 +39,7 @@ class O2scl < Formula
         system "./configure", "--disable-dependency-tracking",
                "--enable-eigen",
                "--disable-silent-rules",
+               "--includedir=/usr/local/include/eigen3",
                "--prefix=#{prefix}"
       else
         system "./configure", "--disable-dependency-tracking",
