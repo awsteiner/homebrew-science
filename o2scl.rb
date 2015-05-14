@@ -2,7 +2,7 @@
 class O2scl < Formula
   homepage "http://o2scl.sourceforge.net"
   url "http://web.utk.edu/~asteine1/o2scl-0.918.tar.gz"
-  sha256 "22c25d02779df3f8831230c61040e2ba635762795adb2941cd5d5ffe103e1e5b"
+  sha256 "6c833c6bca11aafe967f43d2d571204cfff1602a84893bd53463716f908cdfcd"
 
   option "with-check", "Run build-time tests"
   option "with-examples", "Run build-time examples"
@@ -23,9 +23,9 @@ class O2scl < Formula
   def install
     if build.with? "armadillo"
       if build.with? "eigen"
+        ENV["CXXFLAGS"] = "-I/usr/local/include/eigen3"
         system "./configure", "--disable-dependency-tracking",
                "--enable-armadillo","--enable-eigen",
-               "--includedir=/usr/local/include/eigen3",
                "--disable-silent-rules",
                "--prefix=#{prefix}"
       else
@@ -36,6 +36,7 @@ class O2scl < Formula
       end
     else
       if build.with? "eigen"
+        ENV["CXXFLAGS"] = "-I/usr/local/include/eigen3"
         system "./configure", "--disable-dependency-tracking",
                "--enable-eigen",
                "--disable-silent-rules",
