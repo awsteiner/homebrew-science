@@ -13,6 +13,8 @@ class O2scl < Formula
   depends_on "hdf5"
   depends_on "boost"
   depends_on "readline"
+  depends_on "armadillo" => :optional
+  depends_on "eigen" => :optional
   if build.with? "armadillo"
     depends_on "armadillo"
   end
