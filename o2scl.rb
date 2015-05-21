@@ -1,13 +1,19 @@
-
 class O2scl < Formula
   homepage "http://o2scl.sourceforge.net"
-  url "http://web.utk.edu/~asteine1/o2scl-0.918.tar.gz"
-  sha256 "4cf4173fa2759c374fbed245a7eeabb233167560cb380478e9fbfbd69d47e71f"
+  stable do
+    url "http://web.utk.edu/~asteine1/o2scl-0.918.tar.gz"
+    sha256 "4cf4173fa2759c374fbed245a7eeabb233167560cb380478e9fbfbd69d47e71f"
+  end
+  devel do
+    url "http://web.utk.edu/~asteine1/o2scl-0.918.tar.gz"
+    sha256 "4cf4173fa2759c374fbed245a7eeabb233167560cb380478e9fbfbd69d47e71f"
+  end
 
   option "with-check", "Run build-time tests"
   option "with-examples", "Run build-time examples"
   option "with-armadillo", "Include armadillo support"
   option "with-eigen", "Include eigen support"
+  option "with-no-range-check", "Disable range-checking"
 
   depends_on "gsl"
   depends_on "hdf5"
@@ -25,12 +31,19 @@ class O2scl < Formula
   def install
     if build.with? "armadillo"
       if build.with? "eigen"
-        ENV["CXXFLAGS"] = "-I/usr/local/include/eigen3"
+        if build.with? "no-range-check"
+          ENV["CXXFLAGS"] = "-I/usr/local/include/eigen3 -DO2SCL_NO_RANGE_CHECK"
+        else
+          ENV["CXXFLAGS"] = "-I/usr/local/include/eigen3"
+        end
         system "./configure", "--disable-dependency-tracking",
                "--enable-armadillo","--enable-eigen",
                "--disable-silent-rules",
                "--prefix=#{prefix}"
       else
+        if build.with? "no-range-check"
+          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
+        end
         system "./configure", "--disable-dependency-tracking",
                "--enable-armadillo",
                "--disable-silent-rules",
@@ -38,13 +51,20 @@ class O2scl < Formula
       end
     else
       if build.with? "eigen"
-        ENV["CXXFLAGS"] = "-I/usr/local/include/eigen3"
+        if build.with? "no-range-check"
+          ENV["CXXFLAGS"] = "-I/usr/local/include/eigen3 -DO2SCL_NO_RANGE_CHECK"
+        else
+          ENV["CXXFLAGS"] = "-I/usr/local/include/eigen3"
+        end
         system "./configure", "--disable-dependency-tracking",
                "--enable-eigen",
                "--disable-silent-rules",
                "--includedir=/usr/local/include/eigen3",
                "--prefix=#{prefix}"
       else
+        if build.with? "no-range-check"
+          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
+        end
         system "./configure", "--disable-dependency-tracking",
                "--disable-silent-rules",
                "--prefix=#{prefix}"
@@ -54,9 +74,10 @@ class O2scl < Formula
     system "make", "install"
     include.install Dir["include/o2scl/*.h"]
     system "make", "check" if build.with? "check"
-    system "make", "o2scl-examples" if build.with? "check"
+    system "make", "o2scl-examples" if build.with? "examples"
     # Would be nice to save the output for make check and
     # o2scl-examples somewhere where the user can see it?
+    share.install Dir["examples/ex*.cpp"] if build.with? "examples"
   end
 
   test do
