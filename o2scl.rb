@@ -2,7 +2,7 @@
 class O2scl < Formula
   homepage "http://o2scl.sourceforge.net"
   url "http://web.utk.edu/~asteine1/o2scl-0.918.tar.gz"
-  sha256 "22c25d02779df3f8831230c61040e2ba635762795adb2941cd5d5ffe103e1e5b"
+  sha256 "4cf4173fa2759c374fbed245a7eeabb233167560cb380478e9fbfbd69d47e71f"
 
   option "with-check", "Run build-time tests"
   option "with-examples", "Run build-time examples"
