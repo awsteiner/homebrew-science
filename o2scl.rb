@@ -2,7 +2,7 @@
 class O2scl < Formula
   homepage "http://o2scl.sourceforge.net"
   url "http://web.utk.edu/~asteine1/o2scl-0.918.tar.gz"
-  sha256 "6c833c6bca11aafe967f43d2d571204cfff1602a84893bd53463716f908cdfcd"
+  sha256 "4cf4173fa2759c374fbed245a7eeabb233167560cb380478e9fbfbd69d47e71f"
 
   option "with-check", "Run build-time tests"
   option "with-examples", "Run build-time examples"
@@ -52,6 +52,7 @@ class O2scl < Formula
     end
     system "make"
     system "make", "install"
+    include.install Dir["include/o2scl/*.h"]
     system "make", "check" if build.with? "check"
     system "make", "o2scl-examples" if build.with? "check"
     # Would be nice to save the output for make check and
