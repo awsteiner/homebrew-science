@@ -13,6 +13,8 @@ class O2scl < Formula
   depends_on "hdf5"
   depends_on "boost"
   depends_on "readline"
+  depends_on "armadillo" => :optional
+  depends_on "eigen" => :optional
   if build.with? "armadillo"
     depends_on "armadillo"
   end
@@ -23,6 +25,7 @@ class O2scl < Formula
   def install
     if build.with? "armadillo"
       if build.with? "eigen"
+        ENV["CXXFLAGS"] = "-I/usr/local/include/eigen3"
         system "./configure", "--disable-dependency-tracking",
                "--enable-armadillo","--enable-eigen",
                "--disable-silent-rules",
@@ -35,9 +38,11 @@ class O2scl < Formula
       end
     else
       if build.with? "eigen"
+        ENV["CXXFLAGS"] = "-I/usr/local/include/eigen3"
         system "./configure", "--disable-dependency-tracking",
                "--enable-eigen",
                "--disable-silent-rules",
+               "--includedir=/usr/local/include/eigen3",
                "--prefix=#{prefix}"
       else
         system "./configure", "--disable-dependency-tracking",
