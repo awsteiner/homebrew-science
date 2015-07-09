@@ -2,11 +2,11 @@ class O2scl < Formula
   homepage "http://o2scl.sourceforge.net"
   stable do
     url "http://web.utk.edu/~asteine1/o2scl-0.918.tar.gz"
-    sha256 "bd9e464a680851980fff258d699a18528bd14e1ab6f7c69ff44912da9b0b3593"
+    sha256 "03a042fea37e257a295b09fa8b4502f76c046be06e0d53c88f0b9115db609f37"
   end
   devel do
     url "http://web.utk.edu/~asteine1/o2scl-0.918.tar.gz"
-    sha256 "bd9e464a680851980fff258d699a18528bd14e1ab6f7c69ff44912da9b0b3593"
+    sha256 "03a042fea37e257a295b09fa8b4502f76c046be06e0d53c88f0b9115db609f37"
   end
 
   option "with-check", "Run build-time tests"
