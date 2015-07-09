@@ -11,7 +11,7 @@ class O2scl < Formula
 
   option "with-check", "Run build-time tests"
   option "with-examples", "Run build-time examples"
-  option "with-armadillo", "Include armadillo support"
+  option "with-armadillo", "Include armadillo support [not working yet]"
   option "with-eigen", "Include eigen support"
   option "with-no-range-check", "Disable range-checking"
 
