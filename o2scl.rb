@@ -2,10 +2,10 @@ class O2scl < Formula
   homepage "http://o2scl.sourceforge.net"
   stable do
     url "http://web.utk.edu/~asteine1/o2scl-0.918.tar.gz"
-    sha256 "03a042fea37e257a295b09fa8b4502f76c046be06e0d53c88f0b9115db609f37"
+    sha256 "ac19212e22046e3143a13178031526425e766577b0bb1614dd84a8e4ac4ea321"
   end
   devel do
-    url "http://web.utk.edu/~asteine1/o2scl-0.918.tar.gz"
+    url "http://web.utk.edu/~asteine1/o2scl-0.919.tar.gz"
     sha256 "03a042fea37e257a295b09fa8b4502f76c046be06e0d53c88f0b9115db609f37"
   end
 
