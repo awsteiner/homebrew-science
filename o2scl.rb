@@ -1,8 +1,8 @@
 class O2scl < Formula
   homepage "http://o2scl.sourceforge.net"
   stable do
-    url "http://web.utk.edu/~asteine1/o2scl-0.918.tar.gz"
-    sha256 "ac19212e22046e3143a13178031526425e766577b0bb1614dd84a8e4ac4ea321"
+    url "https://github.com/awsteiner/o2scl/releases/download/v0.918/o2scl-0.918.tar.gz"
+    sha256 "d5c3bafd57dca10ee9b7c8a60708ac0537dfe31eef4e88eafeacfd62b3ee674c"
   end
   devel do
     url "http://web.utk.edu/~asteine1/o2scl-0.919.tar.gz"
