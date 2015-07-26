@@ -5,8 +5,8 @@ class O2scl < Formula
     sha256 "d5c3bafd57dca10ee9b7c8a60708ac0537dfe31eef4e88eafeacfd62b3ee674c"
   end
   devel do
-    url "http://web.utk.edu/~asteine1/o2scl-0.919.tar.gz"
-    sha256 "03a042fea37e257a295b09fa8b4502f76c046be06e0d53c88f0b9115db609f37"
+    url "http://web.utk.edu/~asteine1/o2scl/o2scl-0.919.tar.gz"
+    sha256 "acf5fb5f376e2f834a1cb8566e8da9b9972cc999ce30f59cb8e0dadb0193b076"
   end
 
   option "with-check", "Run build-time tests"
