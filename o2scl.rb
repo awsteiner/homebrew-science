@@ -1,5 +1,5 @@
 class O2scl < Formula
-  homepage "http://o2scl.sourceforge.net"
+  homepage "http://web.utk.edu/~asteine1/o2scl"
   stable do
     url "https://github.com/awsteiner/o2scl/releases/download/v0.918/o2scl-0.918.tar.gz"
     sha256 "d5c3bafd57dca10ee9b7c8a60708ac0537dfe31eef4e88eafeacfd62b3ee674c"
