@@ -50,6 +50,7 @@ class O2scl < Formula
     # the ./configure script
     if build.head?
       system "mkdir", "m4"
+      system "libtoolize"
       system "aclocal"
       system "autoconf"
       system "autoheader"
