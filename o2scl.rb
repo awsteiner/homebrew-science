@@ -62,11 +62,7 @@ class O2scl < Formula
     # a 'g' prefix by homebrew.
     if build.head?
       mkdir "m4"
-      system "glibtoolize", "--force"
-      system "aclocal"
-      system "autoheader"
-      system "autoconf"
-      system "automake", "-a", "--gnu"
+      system "autoreconf", "-i"
     end
     # Install considering all of the various options
     if build.with? "armadillo"
