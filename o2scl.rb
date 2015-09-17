@@ -5,12 +5,10 @@
 #
 class O2scl < Formula
   homepage "http://web.utk.edu/~asteine1/o2scl"
+  head "http://github.com/awsteiner/o2scl.git"
   stable do
     url "https://github.com/awsteiner/o2scl/releases/download/v0.918/o2scl-0.918.tar.gz"
     sha256 "d5c3bafd57dca10ee9b7c8a60708ac0537dfe31eef4e88eafeacfd62b3ee674c"
-  end
-  devel do
-    head "http://github.com/awsteiner/o2scl.git"
   end
 
   option "with-check", "Run build-time tests"
@@ -35,7 +33,7 @@ class O2scl < Formula
   if build.with? "eigen"
     depends_on "eigen"
   end
-  if build.devel?
+  if build.head?
     depends_on "autoconf"
     depends_on "automake"
     depends_on "libtool"
@@ -50,7 +48,7 @@ class O2scl < Formula
   def install
     # If we're installing from the repo, then use GNU autotools to make
     # the ./configure script
-    if build.devel?
+    if build.head?
       system "mkdir", "m4"
       system "autoreconf", "-i"
       system "autoconf"
@@ -101,7 +99,7 @@ class O2scl < Formula
     # If there's no documentation, just add some blank files so
     # that the install target succeeds
     #
-    if build.devel?
+    if build.head?
       system "make", "blank-doc"
     end
     system "make"
