@@ -1,3 +1,8 @@
+#
+# Notes: armadillo doesn't yet work because it requires gcc, so
+# in order to make it work one has to install hdf5 and boost
+# with gcc as well.
+#
 class O2scl < Formula
   homepage "http://web.utk.edu/~asteine1/o2scl"
   stable do
@@ -5,8 +10,7 @@ class O2scl < Formula
     sha256 "d5c3bafd57dca10ee9b7c8a60708ac0537dfe31eef4e88eafeacfd62b3ee674c"
   end
   devel do
-    url "http://web.utk.edu/~asteine1/o2scl/o2scl-0.919.tar.gz"
-    sha256 "acf5fb5f376e2f834a1cb8566e8da9b9972cc999ce30f59cb8e0dadb0193b076"
+    head "http://github.com/awsteiner/o2scl.git"
   end
 
   option "with-check", "Run build-time tests"
@@ -21,14 +25,37 @@ class O2scl < Formula
   depends_on "readline"
   depends_on "armadillo" => :optional
   depends_on "eigen" => :optional
+  depends_on "autoconf" => :optional
+  depends_on "automake" => :optional
+  depends_on "libtool" => :optional
+
   if build.with? "armadillo"
     depends_on "armadillo"
   end
   if build.with? "eigen"
     depends_on "eigen"
   end
+  if build.devel?
+    depends_on "autoconf"
+    depends_on "automake"
+    depends_on "libtool"
+  end
 
+  # The main installation script
+  #
+  # The Eigen formula installs in eigen3/Eigen instead of just Eigen.
+  # The current fix for this is to install o2scl into eigen3 also, so
+  # that o2scl can find the Eigen directory. This should be improved
+  # in the future.
   def install
+    # If we're installing from the repo, then use GNU autotools to make
+    # the ./configure script
+    if build.devel?
+      system "mkdir", "m4"
+      system "autoreconf", "-i"
+      system "autoconf"
+      system "automake", "-a", "--gnu"
+    end
     if build.with? "armadillo"
       if build.with? "eigen"
         if build.with? "no-range-check"
@@ -70,8 +97,18 @@ class O2scl < Formula
                "--prefix=#{prefix}"
       end
     end
+    #
+    # If there's no documentation, just add some blank files so
+    # that the install target succeeds
+    #
+    if build.devel?
+      system "make", "blank-doc"
+    end
     system "make"
     system "make", "install"
+    #
+    # Fixme: should document why this is necessary
+    #
     include.install Dir["include/o2scl/*.h"]
     system "make", "check" if build.with? "check"
     system "make", "o2scl-examples" if build.with? "examples"
