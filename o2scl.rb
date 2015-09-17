@@ -50,8 +50,9 @@ class O2scl < Formula
     # the ./configure script
     if build.head?
       system "mkdir", "m4"
-      system "autoreconf", "-i"
+      system "aclocal"
       system "autoconf"
+      system "autoheader"
       system "automake", "-a", "--gnu"
     end
     if build.with? "armadillo"
