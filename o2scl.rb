@@ -31,7 +31,7 @@ class O2scl < Formula
   option "with-no-range-check", "Disable range-checking"
 
   depends_on "gsl"
-  depends_on "hdf5"
+  depends_on "homebrew/science/hdf5"
   depends_on "boost"
   depends_on "readline"
   depends_on "armadillo" => :optional
