@@ -51,11 +51,6 @@ class O2scl < Formula
 
   # The main installation script
   #
-  # The Eigen formula installs in eigen3/Eigen instead of just Eigen.
-  # The current fix for this is to install o2scl into eigen3 also, so
-  # that o2scl can find the Eigen directory. This should be improved
-  # in the future.
-  #
   def install
     # If we're installing from the repo, then use GNU autotools to make
     # the ./configure script. Note that libtool is often installed with
@@ -68,9 +63,7 @@ class O2scl < Formula
     if build.with? "armadillo"
       if build.with? "eigen"
         if build.with? "no-range-check"
-          ENV["CXXFLAGS"] = "-I/usr/local/include/eigen3 -DO2SCL_NO_RANGE_CHECK"
-        else
-          ENV["CXXFLAGS"] = "-I/usr/local/include/eigen3"
+          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
         end
         system "./configure", "--disable-dependency-tracking",
                "--enable-armadillo", "--enable-eigen",
@@ -88,9 +81,7 @@ class O2scl < Formula
     else
       if build.with? "eigen"
         if build.with? "no-range-check"
-          ENV["CXXFLAGS"] = "-I/usr/local/include/eigen3 -DO2SCL_NO_RANGE_CHECK"
-        else
-          ENV["CXXFLAGS"] = "-I/usr/local/include/eigen3"
+          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
         end
         system "./configure", "--disable-dependency-tracking",
                "--enable-eigen",
