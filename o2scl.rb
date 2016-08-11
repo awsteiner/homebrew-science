@@ -86,7 +86,6 @@ class O2scl < Formula
         system "./configure", "--disable-dependency-tracking",
                "--enable-eigen",
                "--disable-silent-rules",
-               "--includedir=/usr/local/include/eigen3",
                "--prefix=#{prefix}"
       else
         if build.with? "no-range-check"
