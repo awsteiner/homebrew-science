@@ -103,7 +103,11 @@ class O2scl < Formula
     if build.head?
       system "make", "blank-doc"
     end
-    system "make"
+    #
+    # Unfortunately if we do 'make' and then 'make install', it fails
+    # to build acol properly (e.g. on antares), so we just do 'make
+    # install'.
+    #
     system "make", "install"
     #
     # FIXME: should document why this is necessary
