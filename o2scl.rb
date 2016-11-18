@@ -66,7 +66,7 @@ class O2scl < Formula
           ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
         end
         system "./configure", "--disable-dependency-tracking",
-               "--enable-armadillo", "--enable-eigen",
+               "--enable-armadillo", "--enable-eigen","--enable-gsl2",
                "--disable-silent-rules",
                "--prefix=#{prefix}"
       else
@@ -74,7 +74,7 @@ class O2scl < Formula
           ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
         end
         system "./configure", "--disable-dependency-tracking",
-               "--enable-armadillo",
+               "--enable-armadillo","--enable-gsl2",
                "--disable-silent-rules",
                "--prefix=#{prefix}"
       end
@@ -84,7 +84,7 @@ class O2scl < Formula
           ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
         end
         system "./configure", "--disable-dependency-tracking",
-               "--enable-eigen",
+               "--enable-eigen","--enable-gsl2",
                "--disable-silent-rules",
                "--prefix=#{prefix}"
       else
@@ -92,7 +92,7 @@ class O2scl < Formula
           ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
         end
         system "./configure", "--disable-dependency-tracking",
-               "--disable-silent-rules",
+               "--disable-silent-rules","--enable-gsl2",
                "--prefix=#{prefix}"
       end
     end
