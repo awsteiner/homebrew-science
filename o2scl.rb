@@ -108,6 +108,7 @@ class O2scl < Formula
     # to build acol properly (e.g. on antares), so we just do 'make
     # install'.
     #
+    system "make"
     system "make", "install"
     #
     # FIXME: should document why this is necessary
