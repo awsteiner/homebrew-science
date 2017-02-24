@@ -91,6 +91,7 @@ class O2scl < Formula
         if build.with? "no-range-check"
           ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
         end
+        #ENV["LDFLAGS"] = "-L"+buildpath
         system "./configure", "--disable-dependency-tracking",
                "--disable-silent-rules","--enable-gsl2",
                "--prefix=#{prefix}"
@@ -107,6 +108,12 @@ class O2scl < Formula
     # Unfortunately if we do 'make' and then 'make install', it fails
     # to build acol properly (e.g. on antares), so we just do 'make
     # install'.
+    #
+    # 2/24/17: Actually this most recent time it worked better
+    # with 'make' and 'make install' on antares, so I leave it
+    # this way for now. Alternatively, there is an LDFLAGS
+    # setting above which I can try if I'm still having problems.
+    #
     #
     system "make"
     system "make", "install"
