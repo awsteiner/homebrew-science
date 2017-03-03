@@ -20,8 +20,8 @@ class O2scl < Formula
   homepage "http://web.utk.edu/~asteine1/o2scl"
   head "https://github.com/awsteiner/o2scl.git"
   stable do
-    url "https://github.com/awsteiner/o2scl/releases/download/v0.919/o2scl-0.919.tar.gz"
-    sha256 "0b9e27c4cbc353e56c71b05456cb9ca3226758f74402736da5c90b71b920c32d"
+    url "https://github.com/awsteiner/o2scl/releases/download/v0.920/o2scl-0.920.tar.gz"
+    sha256 "dd08c0cb0ab13b9d63ae0cc83f026f69076166877a76661aa5059b7cce29e712"
   end
 
   option "with-check", "Run build-time tests"
