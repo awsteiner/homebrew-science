@@ -1,7 +1,7 @@
 #
 # Todos:
 #
-class btmanip < Formula
+class Btmanip < Formula
   desc "BibTeX File Manipulation Utility"
   homepage "http://web.utk.edu/~asteine1/btmanip"
   head "https://github.com/awsteiner/btmanip.git"
