@@ -13,9 +13,10 @@ class Btmanip < Formula
   def install
     #
     system "make"
+    bin.install "btmanip"
   end
 
   test do
-    system "btmanip", "--version"
+    system "btmanip", "-h"
   end
 end
