@@ -28,6 +28,7 @@ class O2scl < Formula
   option "with-examples", "Run build-time examples"
   option "with-armadillo", "Include armadillo support [not working yet]"
   option "with-eigen", "Include eigen support"
+  option "with-openmp", "Include OpenMP support"
   option "with-no-range-check", "Disable range-checking"
 
   depends_on "gsl"
@@ -65,36 +66,60 @@ class O2scl < Formula
         if build.with? "no-range-check"
           ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
         end
-        system "./configure", "--disable-dependency-tracking",
-               "--enable-armadillo", "--enable-eigen","--enable-gsl2",
-               "--disable-silent-rules",
-               "--prefix=#{prefix}"
+        if build.with? "openmp"
+          system "./configure", "--disable-dependency-tracking",
+                 "--enable-armadillo", "--enable-eigen","--enable-gsl2",
+                 "--disable-silent-rules","--prefix=#{prefix}"
+        else
+          system "./configure", "--disable-dependency-tracking",
+                 "--enable-armadillo", "--enable-eigen","--enable-gsl2",
+                 "--enable-openmp","--disable-silent-rules",
+                 "--prefix=#{prefix}"
+        end
       else
         if build.with? "no-range-check"
           ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
         end
-        system "./configure", "--disable-dependency-tracking",
-               "--enable-armadillo","--enable-gsl2",
-               "--disable-silent-rules",
-               "--prefix=#{prefix}"
+        if build.with? "openmp"
+          system "./configure", "--disable-dependency-tracking",
+                 "--enable-armadillo","--enable-gsl2",
+                 "--enable-openmp","--disable-silent-rules",
+                 "--prefix=#{prefix}"
+        else
+          system "./configure", "--disable-dependency-tracking",
+                 "--enable-armadillo","--enable-gsl2",
+                 "--disable-silent-rules","--prefix=#{prefix}"
+        end
       end
     else
       if build.with? "eigen"
         if build.with? "no-range-check"
           ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
         end
-        system "./configure", "--disable-dependency-tracking",
-               "--enable-eigen","--enable-gsl2",
-               "--disable-silent-rules",
-               "--prefix=#{prefix}"
+        if build.with? "openmp"
+          system "./configure", "--disable-dependency-tracking",
+                 "--enable-eigen","--enable-gsl2",
+                 "--enable-openmp","--disable-silent-rules",
+                 "--prefix=#{prefix}"
+        else
+          system "./configure", "--disable-dependency-tracking",
+                 "--enable-eigen","--enable-gsl2",
+                 "--disable-silent-rules","--prefix=#{prefix}"
+        end
       else
         if build.with? "no-range-check"
           ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
         end
         #ENV["LDFLAGS"] = "-L"+buildpath
-        system "./configure", "--disable-dependency-tracking",
-               "--disable-silent-rules","--enable-gsl2",
-               "--prefix=#{prefix}"
+        if build.with? "openmp"
+          system "./configure", "--disable-dependency-tracking",
+                 "--disable-silent-rules","--enable-gsl2",
+                 "--enable-openmp","--prefix=#{prefix}"
+        else
+          system "./configure", "--disable-dependency-tracking",
+                 "--disable-silent-rules","--enable-gsl2",
+                 "--prefix=#{prefix}"
+        end
       end
     end
     #
