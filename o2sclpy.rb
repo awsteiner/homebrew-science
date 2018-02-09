@@ -15,11 +15,11 @@ class O2sclpy < Formula
   # The main installation script
   #
   def install
-    #
-    system "pip3", "install", "."
+    virtual_evn_install_with_resources
+    #system "pip3", "install", "."
   end
 
-  test do
-    system "o2graph", "-h"
-  end
+  #test do
+    #system "o2graph", "-h"
+  #end
 end
