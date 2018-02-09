@@ -21,7 +21,7 @@ class O2scl < Formula
   head "https://github.com/awsteiner/o2scl.git"
   stable do
     url "https://github.com/awsteiner/o2scl/releases/download/v0.921/o2scl-0.921.tar.gz"
-    sha256 "e807902f90af49dc5640c5f47db1a0a2d7edea34bde2fa6d4b5f7a5c1bcd549c"
+    sha256 "972ede93a694d0273230da6b57d73b5e04c4007fd883fcf330e866d7da9bf1f9"
   end
 
   option "with-check", "Run build-time tests"
