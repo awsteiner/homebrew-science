@@ -15,7 +15,7 @@ class O2sclpy < Formula
   # The main installation script
   #
   def install
-    virtual_evn_install_with_resources
+    virtualenv_install_with_resources
     #system "pip3", "install", "."
   end
 
