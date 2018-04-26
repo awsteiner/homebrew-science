@@ -17,7 +17,7 @@
 #
 class O2scl < Formula
   desc "Object-oriented Scientific Computing Library"
-  homepage "https://isospin.roam.utk.edu/static/o2scl"
+  homepage "https://isospin.roam.utk.edu/static/code/o2scl"
   head "https://github.com/awsteiner/o2scl.git"
   stable do
     url "https://github.com/awsteiner/o2scl/releases/download/v0.921/o2scl-0.921.tar.gz"

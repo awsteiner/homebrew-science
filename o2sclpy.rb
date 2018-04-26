@@ -3,7 +3,7 @@
 #
 class O2sclpy < Formula
   desc "Python extensions for O2scl"
-  homepage "http://isospin.roam.utk.edu/static/o2sclpy"
+  homepage "http://isospin.roam.utk.edu/static/code/o2sclpy"
   head "https://github.com/awsteiner/o2sclpy.git"
   stable do
     url "https://files.pythonhosted.org/packages/38/86/554aafc9f3458a51da91c054e3036630608a64805eb414f618dafd4760c9/o2sclpy-0.921.tar.gz"
