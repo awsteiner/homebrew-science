@@ -143,6 +143,7 @@ class O2scl < Formula
     # so I just do 'make install'
     #
     #system "make"
+    ENV.deparallelize
     system "make", "install"
     #
     # FIXME: should document why this is necessary
