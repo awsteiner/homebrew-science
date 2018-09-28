@@ -139,8 +139,10 @@ class O2scl < Formula
     # this way for now. Alternatively, there is an LDFLAGS
     # setting above which I can try if I'm still having problems.
     #
+    # 9/28/17: I'm having problems with acol again on mimosa,
+    # so I just do 'make install'
     #
-    system "make"
+    #system "make"
     system "make", "install"
     #
     # FIXME: should document why this is necessary
