@@ -3,7 +3,7 @@
 #
 class Btmanip < Formula
   desc "BibTeX File Manipulation Utility"
-  homepage "http://web.utk.edu/~asteine1/btmanip"
+  homepage "https://isospin.roam.utk.edu/static/code/btmanip"
   head "https://github.com/awsteiner/btmanip.git"
 
   depends_on "o2scl"
