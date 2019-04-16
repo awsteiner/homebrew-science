@@ -30,6 +30,7 @@ class O2scl < Formula
   option "with-eigen", "Include eigen support"
   option "with-openmp", "Include OpenMP support"
   option "with-no-range-check", "Disable range-checking"
+  option "with-fast-test", "Skip some tests to run faster"
 
   depends_on "gsl"
   depends_on "hdf5"
@@ -64,7 +65,11 @@ class O2scl < Formula
     if build.with? "armadillo"
       if build.with? "eigen"
         if build.with? "no-range-check"
-          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
+          if build.with? "fast-test"
+            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
+          else
+            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
+          end
         end
         if build.with? "openmp"
           system "./configure", "--disable-dependency-tracking",
@@ -77,7 +82,9 @@ class O2scl < Formula
                  "--prefix=#{prefix}"
         end
       else
-        if build.with? "no-range-check"
+        if build.with? "fast-test"
+          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
+        else
           ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
         end
         if build.with? "openmp"
@@ -93,7 +100,9 @@ class O2scl < Formula
       end
     else
       if build.with? "eigen"
-        if build.with? "no-range-check"
+        if build.with? "fast-test"
+          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
+        else
           ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
         end
         if build.with? "openmp"
@@ -107,7 +116,9 @@ class O2scl < Formula
                  "--disable-silent-rules","--prefix=#{prefix}"
         end
       else
-        if build.with? "no-range-check"
+        if build.with? "fast-test"
+          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
+        else
           ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
         end
         #ENV["LDFLAGS"] = "-L"+buildpath
