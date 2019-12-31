@@ -20,8 +20,8 @@ class O2scl < Formula
   homepage "https://isospin.roam.utk.edu/static/code/o2scl"
   head "https://github.com/awsteiner/o2scl.git"
   stable do
-    url "https://github.com/awsteiner/o2scl/releases/download/v0.923/o2scl-0.923.tar.gz"
-    sha256 "dc98d20cf3943cfc715505d5d2a354607711e9ecd04fd7a442c585ed573cffb2"
+    url "https://github.com/awsteiner/o2scl/releases/download/v0.924/o2scl-0.924.tar.gz"
+    sha256 "a9fa7b313566fd49d60fc3e924c207e0d1eb77f324cf982f7062a0451cbfea0b"
   end
 
   option "with-check", "Run build-time tests"
