@@ -45,10 +45,15 @@ class O2scl < Formula
   if build.with? "eigen"
     depends_on "eigen"
   end
+#  if build.head?
+#    depends_on "autoconf" => :build
+#    depends_on "automake" => :build
+#    depends_on "libtool" => :build
+#  end
   if build.head?
-    depends_on "autoconf" => :build
-    depends_on "automake" => :build
-    depends_on "libtool" => :build
+    depends_on "autoconf"
+    depends_on "automake"
+    depends_on "libtool"
   end
 
   # The main installation script
