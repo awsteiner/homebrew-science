@@ -38,6 +38,11 @@ class O2scl < Formula
   depends_on "readline"
   depends_on "armadillo" => :optional
   depends_on "eigen" => :optional
+  
+  # 9/23/2020: I've been having trouble with builds failing because
+  # they can't find autoreconf, and this seems to fix it for now, even
+  # though these packages really aren't required if you're building
+  # from a release. 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
