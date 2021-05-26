@@ -4,7 +4,7 @@
 class Btmanip < Formula
   desc "BibTeX File Manipulation Utility"
   homepage "https://isospin.roam.utk.edu/static/code/btmanip"
-  head "https://github.com/awsteiner/btmanip.git"
+  head "https://github.com/awsteiner/btmanip.git", :branch => "main"
 
   depends_on "o2scl"
 
