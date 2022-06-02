@@ -17,12 +17,13 @@
 #
 class O2scl < Formula
   desc "Object-oriented Scientific Computing Library"
-  homepage "https://isospin.roam.utk.edu/static/code/o2scl"
+  homepage "https://neutronstars.utk.edu/code/o2scl"
   head "https://github.com/awsteiner/o2scl.git", :branch => "main"
   stable do
     url "https://github.com/awsteiner/o2scl/releases/download/v0.926/o2scl-0.926.tar.gz"
     sha256 "a4d5b90b9a83ddead19f3c01bf29c7c7a3f32134a15755746552417cc4ecea37"
   end
+  license "GPL-3.0-or-later"
 
   option "with-check", "Run build-time tests"
   option "with-examples", "Run build-time examples"
@@ -149,6 +150,7 @@ class O2scl < Formula
     if build.head?
       system "make", "blank-doc"
     end
+    
     #
     # Unfortunately if we do 'make' and then 'make install', it fails
     # to build acol properly (e.g. on antares), so we just do 'make
@@ -161,17 +163,24 @@ class O2scl < Formula
     #
     # 9/28/17: I'm having problems with acol again on mimosa,
     # so I just do 'make install'
-    #
-    #system "make"
+
     ENV.deparallelize
+    #system "make"
     system "make", "install"
+    
     #
     # FIXME: should document why this is necessary
     #
+    if build.with? "check"
+      system "make", "check"
+    end
+    if build.with? "examples"
+      system "make", "o2scl-examples"
+    end
     include.install Dir["include/o2scl/*.h"]
-    system "make", "check" if build.with? "check"
-    system "make", "o2scl-examples" if build.with? "examples"
-    share.install Dir["examples/ex*.cpp"] if build.with? "examples"
+    if build.with? "examples"
+      share.install Dir["examples/ex*.cpp"]
+    end
   end
 
   test do
