@@ -32,6 +32,7 @@ class O2scl < Formula
   option "with-openmp", "Include OpenMP support"
   option "with-no-range-check", "Disable range-checking"
   option "with-fast-test", "Skip some tests to run faster"
+  option "with-python", "Automatic python support"
 
   depends_on "gsl"
   depends_on "hdf5"
@@ -76,70 +77,161 @@ class O2scl < Formula
       if build.with? "eigen"
         if build.with? "no-range-check"
           if build.with? "fast-test"
+            if build.with? "python"
+              ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include `python3-config --includes`"
+            else
+              ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
+            end
+          else
+            if build.with? "python"
+              ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -I/usr/local/lib/python3.11/site-packages/numpy/core/include `python3-config --includes`"
+            else
+              ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
+            end
+          end
+        end
+        if build.with? "openmp"
+          if build.with? "python"
+            system "./configure", "--disable-dependency-tracking",
+                   "--enable-armadillo", "--enable-eigen","--enable-gsl2",
+                   "--enable-python",
+                   "--disable-silent-rules","--prefix=#{prefix}"
+          else
+            system "./configure", "--disable-dependency-tracking",
+                   "--enable-armadillo", "--enable-eigen","--enable-gsl2",
+                   "--disable-silent-rules","--prefix=#{prefix}"
+          end
+        else
+          if build.with? "python"
+            system "./configure", "--disable-dependency-tracking",
+                   "--enable-armadillo", "--enable-eigen","--enable-gsl2",
+                   "--enable-python",
+                   "--enable-openmp","--disable-silent-rules",
+                   "--prefix=#{prefix}"
+          else
+            system "./configure", "--disable-dependency-tracking",
+                   "--enable-armadillo", "--enable-eigen","--enable-gsl2",
+                   "--enable-openmp","--disable-silent-rules",
+                   "--prefix=#{prefix}"
+          end
+        end
+      else
+        if build.with? "fast-test"
+          if build.with? "python"
+            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include `python3-config --includes`"
+          else
             ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
+          end
+        else
+          if build.with? "python"
+            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -I/usr/local/lib/python3.11/site-packages/numpy/core/include `python3-config --includes`"
           else
             ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
           end
         end
         if build.with? "openmp"
-          system "./configure", "--disable-dependency-tracking",
-                 "--enable-armadillo", "--enable-eigen","--enable-gsl2",
-                 "--disable-silent-rules","--prefix=#{prefix}"
+          if build.with? "python"
+            system "./configure", "--disable-dependency-tracking",
+                   "--enable-armadillo","--enable-gsl2",
+                   "--enable-python",
+                   "--enable-openmp","--disable-silent-rules",
+                   "--prefix=#{prefix}"
+          else
+            system "./configure", "--disable-dependency-tracking",
+                   "--enable-armadillo","--enable-gsl2",
+                   "--enable-openmp","--disable-silent-rules",
+                   "--prefix=#{prefix}"
+          end
         else
-          system "./configure", "--disable-dependency-tracking",
-                 "--enable-armadillo", "--enable-eigen","--enable-gsl2",
-                 "--enable-openmp","--disable-silent-rules",
-                 "--prefix=#{prefix}"
-        end
-      else
-        if build.with? "fast-test"
-          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
-        else
-          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
-        end
-        if build.with? "openmp"
-          system "./configure", "--disable-dependency-tracking",
-                 "--enable-armadillo","--enable-gsl2",
-                 "--enable-openmp","--disable-silent-rules",
-                 "--prefix=#{prefix}"
-        else
-          system "./configure", "--disable-dependency-tracking",
-                 "--enable-armadillo","--enable-gsl2",
-                 "--disable-silent-rules","--prefix=#{prefix}"
+          if build.with? "python"
+            system "./configure", "--disable-dependency-tracking",
+                   "--enable-armadillo","--enable-gsl2",
+                   "--enable-python",
+                   "--disable-silent-rules","--prefix=#{prefix}"
+          else
+            system "./configure", "--disable-dependency-tracking",
+                   "--enable-armadillo","--enable-gsl2",
+                   "--disable-silent-rules","--prefix=#{prefix}"
+          end
         end
       end
     else
       if build.with? "eigen"
         if build.with? "fast-test"
-          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
+          if build.with? "python"
+            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include `python3-config --includes`"
+          else
+            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
+          end
         else
-          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
+          if build.with? "python"
+            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -I/usr/local/lib/python3.11/site-packages/numpy/core/include `python3-config --includes`"
+          else
+            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
+          end
         end
         if build.with? "openmp"
-          system "./configure", "--disable-dependency-tracking",
-                 "--enable-eigen","--enable-gsl2",
-                 "--enable-openmp","--disable-silent-rules",
-                 "--prefix=#{prefix}"
+          if build.with? "python"
+            system "./configure", "--disable-dependency-tracking",
+                   "--enable-eigen","--enable-gsl2",
+                   "--enable-python",
+                   "--enable-openmp","--disable-silent-rules",
+                   "--prefix=#{prefix}"
+          else
+            system "./configure", "--disable-dependency-tracking",
+                   "--enable-eigen","--enable-gsl2",
+                   "--enable-openmp","--disable-silent-rules",
+                   "--prefix=#{prefix}"
+          end
         else
-          system "./configure", "--disable-dependency-tracking",
-                 "--enable-eigen","--enable-gsl2",
-                 "--disable-silent-rules","--prefix=#{prefix}"
+          if build.with? "python"
+            system "./configure", "--disable-dependency-tracking",
+                   "--enable-python",
+                   "--enable-eigen","--enable-gsl2",
+                   "--disable-silent-rules","--prefix=#{prefix}"
+          else
+            system "./configure", "--disable-dependency-tracking",
+                   "--enable-eigen","--enable-gsl2",
+                   "--disable-silent-rules","--prefix=#{prefix}"
+          end
         end
       else
         if build.with? "fast-test"
-          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
+          if build.with? "python"
+            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include `python3-config --includes`"
+          else
+            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
+          end
         else
-          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
+          if build.with? "python"
+            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -I/usr/local/lib/python3.11/site-packages/numpy/core/include `python3-config --includes`"
+          else
+            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
+          end
         end
         #ENV["LDFLAGS"] = "-L"+buildpath
         if build.with? "openmp"
-          system "./configure", "--disable-dependency-tracking",
-                 "--disable-silent-rules","--enable-gsl2",
-                 "--enable-openmp","--prefix=#{prefix}"
+          if build.with? "python"
+            system "./configure", "--disable-dependency-tracking",
+                   "--disable-silent-rules","--enable-gsl2",
+                   "--enable-python",
+                   "--enable-openmp","--prefix=#{prefix}"
+          else
+            system "./configure", "--disable-dependency-tracking",
+                   "--disable-silent-rules","--enable-gsl2",
+                   "--enable-openmp","--prefix=#{prefix}"
+          end
         else
-          system "./configure", "--disable-dependency-tracking",
-                 "--disable-silent-rules","--enable-gsl2",
-                 "--prefix=#{prefix}"
+          if build.with? "python"
+            system "./configure", "--disable-dependency-tracking",
+                   "--disable-silent-rules","--enable-gsl2",
+                   "--enable-python",
+                   "--prefix=#{prefix}"
+          else
+            system "./configure", "--disable-dependency-tracking",
+                   "--disable-silent-rules","--enable-gsl2",
+                   "--prefix=#{prefix}"
+          end
         end
       end
     end
@@ -167,6 +259,13 @@ class O2scl < Formula
     ENV.deparallelize
     #system "make"
     system "make", "install"
+
+    if build.with? "python"
+      system "git","clone","https://github.com/awsteiner/o2sclpy"
+      system "cd","o2sclpy"
+      system "pip3","install","."
+      system "cd",".."
+    end
     
     #
     # FIXME: should document why this is necessary
