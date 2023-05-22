@@ -257,16 +257,17 @@ class O2scl < Formula
     # so I just do 'make install'
 
     ENV.deparallelize
+    
+    if build.with? "python"
+      system "git", "clone", "https://github.com/awsteiner/o2sclpy"
+      system "cd", "o2sclpy"
+      system "pip3", "install", "."
+      system "cd", ".."
+    end
+    
     #system "make"
     system "make", "install"
 
-    if build.with? "python"
-      system "git","clone","https://github.com/awsteiner/o2sclpy"
-      system "cd","o2sclpy"
-      system "pip3","install","."
-      system "cd",".."
-    end
-    
     #
     # FIXME: should document why this is necessary
     #
