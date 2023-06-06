@@ -356,12 +356,7 @@ class O2scl < Formula
       venv = virtualenv_create(libexec, "python3.11")
       # Install all of the resources declared on the formula into the virtualenv.
       resources.each do |r|
-        # ansible-core provides all ansible binaries
-        if r.name == "ansible-core"
-          venv.pip_install_and_link r
-        else
-          venv.pip_install r
-        end
+        venv.pip_install r
       end
       venv.pip_install_and_link buildpath
     
