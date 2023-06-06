@@ -259,10 +259,11 @@ class O2scl < Formula
     ENV.deparallelize
     
     if build.with? "python"
-      system "git", "clone", "https://github.com/awsteiner/o2sclpy"
-      system "cd", "o2sclpy"
-      system "pip3", "install", "."
-      system "cd", ".."
+      venv=virtualenv_create(libexec)
+      venv.pip_install matplotlib
+      venv.pip_install numpy
+      venv.pip_install scikit-learn
+      venv.pip_install o2sclpy
     end
     
     #system "make"
