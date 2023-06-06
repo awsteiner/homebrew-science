@@ -40,7 +40,7 @@ class O2scl < Formula
   depends_on "readline"
   depends_on "armadillo" => :optional
   depends_on "eigen" => :optional
-  depends_on "python@3.x"
+  depends_on "python@3.11"
   
   # 9/23/2020: I've been having trouble with builds failing because
   # they can't find autoreconf, and this seems to fix it for now, even
