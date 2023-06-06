@@ -263,7 +263,7 @@ class O2scl < Formula
     
     if build.with? "python"
       venv = virtualenv_create(libexec)
-      venv.pip_install numpy
+      #venv.pip_install numpy
       #venv.pip_install matplotlib
       #venv.pip_install matplotlib
       #venv.pip_install scikit-learn
