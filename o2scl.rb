@@ -49,6 +49,8 @@ class O2scl < Formula
   depends_on "automake" => :build
   depends_on "libtool" => :build
 
+  include Language::Python::Virtualenv
+  
   if build.with? "armadillo"
     depends_on "armadillo"
   end
