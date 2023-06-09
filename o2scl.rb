@@ -75,6 +75,10 @@ class O2scl < Formula
     end
 
     system "echo", "e0"
+
+    ENV["ETEST"] = "one"
+    ENV["ETEST"] = "two", "$ETEST"
+    system "echo", "$ETEST"
     
     # Install considering all of the various options
     if build.with? "armadillo"
