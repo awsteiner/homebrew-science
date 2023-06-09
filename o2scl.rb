@@ -74,95 +74,97 @@ class O2scl < Formula
       system "autoreconf", "-i"
     end
 
-    # Install considering all of the various options
+    # Set up CXXFLAGS
+    if build.with? "no-range-check"
+      if build.with? "fast-test"
+        if build.with? "python"
+          # no-range-check, fast-test, python
+          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+          system "echo", "e1"
+        else # else for if python
+          # no-range-check, fast-test, no python
+          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
+          system "echo", "e2"
+        end # end of if python
+      else # else for fast-test
+        if build.with? "python"
+          #  no-range-check, no fast-test, python
+          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+          system "echo", "e3"
+        else # else for if python
+          # no-range-check, no fast-test, no python
+          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
+          system "echo", "e4"
+        end # end of if python
+      end # end of if fast-test
+    else # else for if no-range-check
+      if build.with? "fast-test"
+        if build.with? "python"
+          #  with range-check, fast-test, python
+          ENV["CXXFLAGS"] = "-DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+          system "echo", "e5"
+        else # else for python
+          #  with range-check, fast-test, no python
+          ENV["CXXFLAGS"] = "-DO2SCL_FAST_TEST"
+          system "echo", "e6"
+        end # end of if python
+      else # else for fast-test
+        if build.with? "python"
+          #  with range-check, no fast-test, python
+          ENV["CXXFLAGS"] = "-I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+          system "echo", "e7"
+        else
+          #  with range-check, no fast-test, no python
+          ENV["CXXFLAGS"] = ""
+          system "echo", "e8"
+        end # end of if python
+      end # end of if fast-test
+    end # end of if no-range-check
+
+    # ------------------------------------------------------------
+    # Set up ./configure script
+    
     if build.with? "armadillo"
-      system "echo", "e0a"
       if build.with? "eigen"
-        system "echo", "e0b"
-        if build.with? "no-range-check"
-          if build.with? "fast-test"
-            if build.with? "python"
-              # armadillo, eigen, no-range-check, fast-test, python
-              ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
-              system "echo", "e1"
-            else
-              # armadillo, eigen, no-range-check, fast-test, no python
-              ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
-              system "echo", "e2"
-            end # end of if python
-          else
-            if build.with? "python"
-              ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
-              system "echo", "e3"
-            else
-              ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
-              system "echo", "e4"
-            end # end of if python
-          end # end of if fast-test
-        else
-          if build.with? "python"
-            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
-            system "echo", "e1"
-          else
-            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
-            system "echo", "e2"
-          end # end of if python
-          system "echo", "fb"
-        else
-          system "echo", "fc"
-          if build.with? "openmp"
-            if build.with? "python"
-              system "./configure", "--disable-dependency-tracking",
-                     "--enable-armadillo", "--enable-eigen",
-                     "--enable-python",
-                     "--disable-silent-rules","--prefix=#{prefix}"
-            else
-              system "./configure", "--disable-dependency-tracking",
-                     "--enable-armadillo", "--enable-eigen",
-                     "--disable-silent-rules","--prefix=#{prefix}"
-            end
-          else
-            if build.with? "python"
-              system "./configure", "--disable-dependency-tracking",
-                     "--enable-armadillo", "--enable-eigen",
-                     "--enable-python",
-                     "--enable-openmp","--disable-silent-rules",
-                     "--prefix=#{prefix}"
-            else
-              system "./configure", "--disable-dependency-tracking",
-                     "--enable-armadillo", "--enable-eigen",
-                     "--enable-openmp","--disable-silent-rules",
-                     "--prefix=#{prefix}"
-            end
-          end
-        end # end of if no-range-check
-      else
-        system "echo", "e0c"
-        if build.with? "fast-test"
-          if build.with? "python"
-            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
-            system "echo", "e5"
-          else
-            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
-            system "echo", "e6"
-          end
-        else
-          if build.with? "python"
-            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
-            system "echo", "e7"
-          else
-            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
-            system "echo", "e8"
-          end
-        end
         if build.with? "openmp"
           if build.with? "python"
+            # armadillo, eigen, openmp, python
+            system "./configure", "--disable-dependency-tracking",
+                   "--enable-armadillo", "--enable-eigen",
+                   "--enable-python","--enable-openmp",
+                   "--disable-silent-rules","--prefix=#{prefix}"
+          else
+            # armadillo, eigen, openmp, no python
+            system "./configure", "--disable-dependency-tracking",
+                   "--enable-armadillo", "--enable-eigen",
+                   "--enable-openmp",
+                   "--disable-silent-rules","--prefix=#{prefix}"
+          end
+        else
+          if build.with? "python"
+            # armadillo, eigen, no openmp, python
+            system "./configure", "--disable-dependency-tracking",
+                   "--enable-armadillo", "--enable-eigen",
+                   "--enable-python",
+                   "--disable-silent-rules","--prefix=#{prefix}"
+          else
+            # armadillo, eigen, no openmp, no python
+            system "./configure", "--disable-dependency-tracking",
+                   "--enable-armadillo", "--enable-eigen",
+                   "--disable-silent-rules","--prefix=#{prefix}"
+          end
+        end
+      else 
+        if build.with? "openmp"
+          if build.with? "python"
+            # armadillo, no eigen, openmp, python
             system "./configure", "--disable-dependency-tracking",
                    "--enable-armadillo",
                    "--enable-python",
                    "--enable-openmp","--disable-silent-rules",
                    "--prefix=#{prefix}"
           else
+            # armadillo, no eigen, openmp, no python
             system "./configure", "--disable-dependency-tracking",
                    "--enable-armadillo",
                    "--enable-openmp","--disable-silent-rules",
@@ -170,11 +172,13 @@ class O2scl < Formula
           end
         else
           if build.with? "python"
+            # armadillo, no eigen, no openmp, python
             system "./configure", "--disable-dependency-tracking",
                    "--enable-armadillo",
                    "--enable-python",
                    "--disable-silent-rules","--prefix=#{prefix}"
           else
+            # armadillo, no eigen, no openmp, no python
             system "./configure", "--disable-dependency-tracking",
                    "--enable-armadillo",
                    "--disable-silent-rules","--prefix=#{prefix}"
@@ -183,31 +187,16 @@ class O2scl < Formula
       end
     else
       if build.with? "eigen"
-        if build.with? "fast-test"
-          if build.with? "python"
-            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
-            system "echo", "e9"
-          else
-            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
-            system "echo", "e10"
-          end
-        else
-          if build.with? "python"
-            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
-            system "echo", "e11"
-          else
-            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
-            system "echo", "e12"
-          end
-        end
         if build.with? "openmp"
           if build.with? "python"
+            # no armadillo, eigen, openmp, python
             system "./configure", "--disable-dependency-tracking",
                    "--enable-eigen",
                    "--enable-python",
                    "--enable-openmp","--disable-silent-rules",
                    "--prefix=#{prefix}"
           else
+            # no armadillo, eigen, openmp, no python
             system "./configure", "--disable-dependency-tracking",
                    "--enable-eigen",
                    "--enable-openmp","--disable-silent-rules",
@@ -215,53 +204,41 @@ class O2scl < Formula
           end
         else
           if build.with? "python"
+            # no armadillo, eigen, no openmp, python
             system "./configure", "--disable-dependency-tracking",
                    "--enable-python",
                    "--enable-eigen",
                    "--disable-silent-rules","--prefix=#{prefix}"
           else
+            # no armadillo, eigen, no openmp, no python
             system "./configure", "--disable-dependency-tracking",
                    "--enable-eigen",
                    "--disable-silent-rules","--prefix=#{prefix}"
           end
         end
       else
-        if build.with? "fast-test"
-          if build.with? "python"
-            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
-            system "echo", "e13"
-          else
-            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
-            system "echo", "e14"
-          end
-        else
-          if build.with? "python"
-            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
-            system "echo", "e15"
-          else
-            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
-            system "echo", "e16"
-          end
-        end
-        #ENV["LDFLAGS"] = "-L"+buildpath
         if build.with? "openmp"
           if build.with? "python"
+            # no armadillo, no eigen, openmp, python
             system "./configure", "--disable-dependency-tracking",
                    "--disable-silent-rules",
                    "--enable-python",
                    "--enable-openmp","--prefix=#{prefix}"
           else
+            # no armadillo, no eigen, openmp, no python
             system "./configure", "--disable-dependency-tracking",
                    "--disable-silent-rules",
                    "--enable-openmp","--prefix=#{prefix}"
           end
         else
           if build.with? "python"
+            # no armadillo, no eigen, no openmp, python
             system "./configure", "--disable-dependency-tracking",
                    "--disable-silent-rules",
                    "--enable-python",
                    "--prefix=#{prefix}"
           else
+            # no armadillo, no eigen, no openmp, no python
             system "./configure", "--disable-dependency-tracking",
                    "--disable-silent-rules",
                    "--prefix=#{prefix}"
@@ -269,6 +246,7 @@ class O2scl < Formula
         end
       end
     end
+    
     #
     # If there's no documentation, just add some blank files so
     # that the install target succeeds.
