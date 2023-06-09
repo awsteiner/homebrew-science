@@ -78,7 +78,9 @@ class O2scl < Formula
     
     # Install considering all of the various options
     if build.with? "armadillo"
+      system "echo", "e0a"
       if build.with? "eigen"
+        system "echo", "e0b"
         if build.with? "no-range-check"
           if build.with? "fast-test"
             if build.with? "python"
@@ -124,6 +126,7 @@ class O2scl < Formula
           end
         end
       else
+        system "echo", "e0c"
         if build.with? "fast-test"
           if build.with? "python"
             ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
