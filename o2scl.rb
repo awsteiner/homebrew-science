@@ -74,14 +74,6 @@ class O2scl < Formula
       system "autoreconf", "-i"
     end
 
-    system "echo", "e0"
-    ENV["ETEST"] = "one"
-    system "echo", "em1"
-    ENV["ETEST"] = "two", "$ETEST"
-    system "echo", "em2"
-    system "echo", "$ETEST"
-    system "echo", "em3"
-    
     # Install considering all of the various options
     if build.with? "armadillo"
       system "echo", "e0a"
@@ -108,33 +100,42 @@ class O2scl < Formula
             system "echo", "fa"
           end # end of if fast-test
         else
+          if build.with? "python"
+            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+            system "echo", "e1"
+          else
+            ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
+            system "echo", "e2"
+          end # end of if python
           system "echo", "fb"
-        end # end of if no-range-check
-        if build.with? "openmp"
-          if build.with? "python"
-            system "./configure", "--disable-dependency-tracking",
-                   "--enable-armadillo", "--enable-eigen",
-                   "--enable-python",
-                   "--disable-silent-rules","--prefix=#{prefix}"
-          else
-            system "./configure", "--disable-dependency-tracking",
-                   "--enable-armadillo", "--enable-eigen",
-                   "--disable-silent-rules","--prefix=#{prefix}"
-          end
         else
-          if build.with? "python"
-            system "./configure", "--disable-dependency-tracking",
-                   "--enable-armadillo", "--enable-eigen",
-                   "--enable-python",
-                   "--enable-openmp","--disable-silent-rules",
-                   "--prefix=#{prefix}"
+          system "echo", "fc"
+          if build.with? "openmp"
+            if build.with? "python"
+              system "./configure", "--disable-dependency-tracking",
+                     "--enable-armadillo", "--enable-eigen",
+                     "--enable-python",
+                     "--disable-silent-rules","--prefix=#{prefix}"
+            else
+              system "./configure", "--disable-dependency-tracking",
+                     "--enable-armadillo", "--enable-eigen",
+                     "--disable-silent-rules","--prefix=#{prefix}"
+            end
           else
-            system "./configure", "--disable-dependency-tracking",
-                   "--enable-armadillo", "--enable-eigen",
-                   "--enable-openmp","--disable-silent-rules",
-                   "--prefix=#{prefix}"
+            if build.with? "python"
+              system "./configure", "--disable-dependency-tracking",
+                     "--enable-armadillo", "--enable-eigen",
+                     "--enable-python",
+                     "--enable-openmp","--disable-silent-rules",
+                     "--prefix=#{prefix}"
+            else
+              system "./configure", "--disable-dependency-tracking",
+                     "--enable-armadillo", "--enable-eigen",
+                     "--enable-openmp","--disable-silent-rules",
+                     "--prefix=#{prefix}"
+            end
           end
-        end
+        end # end of if no-range-check
       else
         system "echo", "e0c"
         if build.with? "fast-test"
