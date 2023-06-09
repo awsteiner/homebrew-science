@@ -40,7 +40,7 @@ class O2scl < Formula
   depends_on "readline"
   depends_on "armadillo" => :optional
   depends_on "eigen" => :optional
-   depends_on "python@3.11" => :optional
+  depends_on "python@3.11" => :optional
   
   # 9/23/2020: I've been having trouble with builds failing because
   # they can't find autoreconf, and this seems to fix it for now, even
@@ -80,14 +80,18 @@ class O2scl < Formula
           if build.with? "fast-test"
             if build.with? "python"
               ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+              system "echo", "e1"
             else
               ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
+              system "echo", "e2"
             end
           else
             if build.with? "python"
               ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+              system "echo", "e3"
             else
               ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
+              system "echo", "e4"
             end
           end
         end
@@ -120,14 +124,18 @@ class O2scl < Formula
         if build.with? "fast-test"
           if build.with? "python"
             ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+            system "echo", "e5"
           else
             ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
+            system "echo", "e6"
           end
         else
           if build.with? "python"
             ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+            system "echo", "e7"
           else
             ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
+            system "echo", "e8"
           end
         end
         if build.with? "openmp"
@@ -161,14 +169,18 @@ class O2scl < Formula
         if build.with? "fast-test"
           if build.with? "python"
             ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+            system "echo", "e9"
           else
             ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
+            system "echo", "e10"
           end
         else
           if build.with? "python"
             ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+            system "echo", "e11"
           else
             ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
+            system "echo", "e12"
           end
         end
         if build.with? "openmp"
@@ -200,14 +212,18 @@ class O2scl < Formula
         if build.with? "fast-test"
           if build.with? "python"
             ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+            system "echo", "e13"
           else
             ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
+            system "echo", "e14"
           end
         else
           if build.with? "python"
             ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+            system "echo", "e15"
           else
             ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
+            system "echo", "e16"
           end
         end
         #ENV["LDFLAGS"] = "-L"+buildpath
