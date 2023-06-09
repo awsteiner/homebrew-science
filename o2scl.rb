@@ -73,6 +73,9 @@ class O2scl < Formula
       mkdir "m4"
       system "autoreconf", "-i"
     end
+
+    system "echo", "e0"
+    
     # Install considering all of the various options
     if build.with? "armadillo"
       if build.with? "eigen"
@@ -98,24 +101,24 @@ class O2scl < Formula
         if build.with? "openmp"
           if build.with? "python"
             system "./configure", "--disable-dependency-tracking",
-                   "--enable-armadillo", "--enable-eigen","--enable-gsl2",
+                   "--enable-armadillo", "--enable-eigen",
                    "--enable-python",
                    "--disable-silent-rules","--prefix=#{prefix}"
           else
             system "./configure", "--disable-dependency-tracking",
-                   "--enable-armadillo", "--enable-eigen","--enable-gsl2",
+                   "--enable-armadillo", "--enable-eigen",
                    "--disable-silent-rules","--prefix=#{prefix}"
           end
         else
           if build.with? "python"
             system "./configure", "--disable-dependency-tracking",
-                   "--enable-armadillo", "--enable-eigen","--enable-gsl2",
+                   "--enable-armadillo", "--enable-eigen",
                    "--enable-python",
                    "--enable-openmp","--disable-silent-rules",
                    "--prefix=#{prefix}"
           else
             system "./configure", "--disable-dependency-tracking",
-                   "--enable-armadillo", "--enable-eigen","--enable-gsl2",
+                   "--enable-armadillo", "--enable-eigen",
                    "--enable-openmp","--disable-silent-rules",
                    "--prefix=#{prefix}"
           end
@@ -141,25 +144,25 @@ class O2scl < Formula
         if build.with? "openmp"
           if build.with? "python"
             system "./configure", "--disable-dependency-tracking",
-                   "--enable-armadillo","--enable-gsl2",
+                   "--enable-armadillo",
                    "--enable-python",
                    "--enable-openmp","--disable-silent-rules",
                    "--prefix=#{prefix}"
           else
             system "./configure", "--disable-dependency-tracking",
-                   "--enable-armadillo","--enable-gsl2",
+                   "--enable-armadillo",
                    "--enable-openmp","--disable-silent-rules",
                    "--prefix=#{prefix}"
           end
         else
           if build.with? "python"
             system "./configure", "--disable-dependency-tracking",
-                   "--enable-armadillo","--enable-gsl2",
+                   "--enable-armadillo",
                    "--enable-python",
                    "--disable-silent-rules","--prefix=#{prefix}"
           else
             system "./configure", "--disable-dependency-tracking",
-                   "--enable-armadillo","--enable-gsl2",
+                   "--enable-armadillo",
                    "--disable-silent-rules","--prefix=#{prefix}"
           end
         end
@@ -186,13 +189,13 @@ class O2scl < Formula
         if build.with? "openmp"
           if build.with? "python"
             system "./configure", "--disable-dependency-tracking",
-                   "--enable-eigen","--enable-gsl2",
+                   "--enable-eigen",
                    "--enable-python",
                    "--enable-openmp","--disable-silent-rules",
                    "--prefix=#{prefix}"
           else
             system "./configure", "--disable-dependency-tracking",
-                   "--enable-eigen","--enable-gsl2",
+                   "--enable-eigen",
                    "--enable-openmp","--disable-silent-rules",
                    "--prefix=#{prefix}"
           end
@@ -200,11 +203,11 @@ class O2scl < Formula
           if build.with? "python"
             system "./configure", "--disable-dependency-tracking",
                    "--enable-python",
-                   "--enable-eigen","--enable-gsl2",
+                   "--enable-eigen",
                    "--disable-silent-rules","--prefix=#{prefix}"
           else
             system "./configure", "--disable-dependency-tracking",
-                   "--enable-eigen","--enable-gsl2",
+                   "--enable-eigen",
                    "--disable-silent-rules","--prefix=#{prefix}"
           end
         end
@@ -230,23 +233,23 @@ class O2scl < Formula
         if build.with? "openmp"
           if build.with? "python"
             system "./configure", "--disable-dependency-tracking",
-                   "--disable-silent-rules","--enable-gsl2",
+                   "--disable-silent-rules",
                    "--enable-python",
                    "--enable-openmp","--prefix=#{prefix}"
           else
             system "./configure", "--disable-dependency-tracking",
-                   "--disable-silent-rules","--enable-gsl2",
+                   "--disable-silent-rules",
                    "--enable-openmp","--prefix=#{prefix}"
           end
         else
           if build.with? "python"
             system "./configure", "--disable-dependency-tracking",
-                   "--disable-silent-rules","--enable-gsl2",
+                   "--disable-silent-rules",
                    "--enable-python",
                    "--prefix=#{prefix}"
           else
             system "./configure", "--disable-dependency-tracking",
-                   "--disable-silent-rules","--enable-gsl2",
+                   "--disable-silent-rules",
                    "--prefix=#{prefix}"
           end
         end
