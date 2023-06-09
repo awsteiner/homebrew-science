@@ -95,7 +95,7 @@ class O2scl < Formula
             else
               ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST"
               system "echo", "e2"
-            end
+            end # end of if python
           else
             if build.with? "python"
               ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
@@ -103,9 +103,13 @@ class O2scl < Formula
             else
               ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK"
               system "echo", "e4"
-            end
-          end
-        end
+            end # end of if python
+          else
+            system "echo", "fa"
+          end # end of if fast-test
+        else
+          system "echo", "fb"
+        end # end of if no-range-check
         if build.with? "openmp"
           if build.with? "python"
             system "./configure", "--disable-dependency-tracking",
