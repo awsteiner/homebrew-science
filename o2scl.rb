@@ -79,7 +79,7 @@ class O2scl < Formula
       if build.with? "fast-test"
         if build.with? "python"
           # no-range-check, fast-test, python
-          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
           system "echo", "e1"
         else # else for if python
           # no-range-check, fast-test, no python
@@ -89,7 +89,7 @@ class O2scl < Formula
       else # else for fast-test
         if build.with? "python"
           #  no-range-check, no fast-test, python
-          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+          ENV["CXXFLAGS"] = "-DO2SCL_NO_RANGE_CHECK -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
           system "echo", "e3"
         else # else for if python
           # no-range-check, no fast-test, no python
@@ -101,7 +101,7 @@ class O2scl < Formula
       if build.with? "fast-test"
         if build.with? "python"
           #  with range-check, fast-test, python
-          ENV["CXXFLAGS"] = "-DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+          ENV["CXXFLAGS"] = "-DO2SCL_FAST_TEST -I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
           system "echo", "e5"
         else # else for python
           #  with range-check, fast-test, no python
@@ -111,7 +111,7 @@ class O2scl < Formula
       else # else for fast-test
         if build.with? "python"
           #  with range-check, no fast-test, python
-          ENV["CXXFLAGS"] = "-I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11 -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+          ENV["CXXFLAGS"] = "-I/usr/local/lib/python3.11/site-packages/numpy/core/include -I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
           system "echo", "e7"
         else
           #  with range-check, no fast-test, no python
