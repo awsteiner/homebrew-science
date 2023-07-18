@@ -20,8 +20,8 @@ class O2scl < Formula
   homepage "https://neutronstars.utk.edu/code/o2scl"
   head "https://github.com/awsteiner/o2scl.git", :branch => "main"
   stable do
-    url "https://github.com/awsteiner/o2scl/releases/download/v0.927/o2scl-0.927.tar.gz"
-    sha256 "9bdbea171c1924c1ae7e0d3dc1f80683ac2c4081eec102a884d453494c9635ad"
+    url "https://github.com/awsteiner/o2scl/releases/download/v0.928/o2scl-0.928.tar.gz"
+    sha256 "55843e5aa1eb2f45b2c0e12cf18b403eccc24ce474562f60989fc07a23afc830"
   end
   license "GPL-3.0-or-later"
 
